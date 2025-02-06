@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste Ekleme ve Silme</title>
+  <style>
+    /* Basit stil */
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background-color: lightblue;
+      margin: 5px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+    button {
+      background-color: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Todo-List</h2>
+
+  <!-- Liste ve giriş alanı -->
+  <input type="text" id="newItem" placeholder="Yeni öğe ekleyin">
+  <button onclick="addItem()">Ekle</button>
+
+  <ul id="myList">
+    <!-- Liste öğeleri buraya eklenecek -->
+  </ul>
+
+  <script>
+    // Listeye yeni öğe ekleme fonksiyonu
+    function addItem() {
+      const input = document.getElementById('newItem');
+      const itemText = input.value.trim();
+      
+      // Eğer kullanıcı boş değer girerse, eklemeyi engelle
+      if (!itemText) {
+        alert("Lütfen geçerli bir öğe girin!");
+        return;
+      }
+
+      // Yeni <li> öğesi oluştur
+      const li = document.createElement('li');
+      li.textContent = itemText;
+
+      // Silme butonu oluştur
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Sil';
+      deleteButton.onclick = function() {
+        li.remove();  // Butona tıklandığında öğeyi sil
+      };
+
+      // Silme butonunu <li>'nin içine ekle
+      li.appendChild(deleteButton);
+
+      // Yeni öğeyi listeye ekle
+      document.getElementById('myList').appendChild(li);
+
+      // Giriş alanını temizle
+      input.value = '';
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
