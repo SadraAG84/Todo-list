@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for 
+from flask import Flask, render_template, request, redirect, url_for  # type: ignore
 
 # Create an instance of the Flask class. The app will use the 'templates' folder for HTML files.
 app = Flask(__name__, template_folder='templates')
