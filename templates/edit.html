@@ -1,14 +1,25 @@
+<!-- edit.html -->
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Edit Todo</title>
-  </head>
-  <body>
-    <h1>Edit Todo</h1>
-    <form action="{{ url_for('edit', index=index) }}" method="post">
-      <input type="text" name="todo" value="{{ todo['task'] }}">
-      <button type="submit">Save</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+</head>
+<body>
+    <h1>Edit Task</h1>
+
+    <form action="{{ url_for('edit', index=index) }}" method="POST">
+        <input type="text" name="todo" value="{{ todo.task }}" required>
+        <select name="priority">
+            <option value="Low" {% if todo.priority == 'Low' %}selected{% endif %}>Low</option>
+            <option value="Medium" {% if todo.priority == 'Medium' %}selected{% endif %}>Medium</option>
+            <option value="High" {% if todo.priority == 'High' %}selected{% endif %}>High</option>
+        </select>
+        <input type="date" name="due_date" value="{{ todo.due_date }}">
+        <button type="submit">Save Changes</button>
     </form>
-  </body>
+    
+    <a href="{{ url_for('index') }}">Back to To-Do List</a>
+</body>
 </html>
