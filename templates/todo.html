@@ -1,24 +1,45 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Todo List</title>
-  </head>
-  <body>
-    <h1>Todo List</h1>
-    <ul>
-      {% for todo in todos %}
-        <li>
-          <input type="checkbox" name="done" {% if todo['done'] %}checked{% endif %} onchange="this.form.submit()">
-          <span {% if todo['done'] %}style="text-decoration: line-through"{% endif %}>{{ todo['task'] }}</span>
-          <a href="{{ url_for('edit', index=loop.index0) }}">edit</a>
-          <a href="{{ url_for('delete', index=loop.index0) }}">delete</a>
-        </li>
-      {% endfor %}
-    </ul>
-    <form action="{{ url_for('add') }}" method="post">
-      <input type="text" name="todo">
-      <button type="submit">Add</button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <!-- Add New To-Do Form -->
+    <form action="{{ url_for('add') }}" method="POST">
+        <label for="todo">Task:</label>
+        <input type="text" id="todo" name="todo" required>
+        <br>
+        <label for="priority">Priority:</label>
+        <select name="priority" id="priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <br>
+        <label for="due_date">Due Date:</label>
+        <input type="date" id="due_date" name="due_date">
+        <br>
+        <button type="submit">Add Task</button>
     </form>
-  </body>
+
+    <h2>Task List</h2>
+    <ul>
+        {% for todo in todos %}
+            <li>
+                <span {% if todo['completed'] %} style="text-decoration: line-through;" {% endif %}>
+                    {{ todo['task'] }} - Priority: {{ todo['priority'] }} - Due Date: {{ todo['due_date'] }}
+                </span>
+                <a href="{{ url_for('check', index=loop.index0) }}">[Toggle]</a> |
+                <a href="{{ url_for('edit', index=loop.index0) }}">[Edit]</a> |
+                <a href="{{ url_for('delete', index=loop.index0) }}">[Delete]</a>
+            </li>
+        {% else %}
+            <li>No tasks available.</li>
+        {% endfor %}
+    </ul>
+</body>
 </html>
